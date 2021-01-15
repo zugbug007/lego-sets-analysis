@@ -29,16 +29,20 @@ plot(avg_price_per_year, type = "l", col = "blue",
 points(med_price_per_year, type = "l", col = "red")
 legend("topleft", inset=c(0.2,0), legend=c("Average","Median"), lty=c(1,1), col=c("blue", "red"))
 
+# By Year
 legosets %>%
-  select(Item_Number,Name,Theme, GBP_MSRP, Pieces, Availability) %>%
+  select(Item_Number,Name,Theme, GBP_MSRP, Pieces, Year) %>%
   filter(GBP_MSRP > 30) %>%
   filter(Pieces > 100) %>%
+  filter(Theme == 'Star Wars') %>%
   mutate(price_per_piece = GBP_MSRP / Pieces) %>%
   ggplot(aes(x=GBP_MSRP, y=price_per_piece)) + 
-  geom_point(aes(color = Availability))
+  geom_point(aes(color = Year))
+
+# By Availability Type
 legosets %>%
   select(Item_Number,Name,Theme, GBP_MSRP, Pieces, Availability) %>%
-  filter(GBP_MSRP > 30) %>%
+  filter(GBP_MSRP > 50) %>%
   filter(Pieces > 100) %>%
   #mutate(price_per_piece = GBP_MSRP / Pieces) %>%
   ggplot(aes(x=GBP_MSRP, y=Pieces)) + 
